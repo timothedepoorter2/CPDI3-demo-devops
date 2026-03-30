@@ -26,3 +26,12 @@ jobs:
 
       - name: build app
         run: npm run build
+
+      - name: start server
+        run: npm start &
+
+      - name: wait server
+        run: npx wait-on http://localhost:3000
+
+      - name: run test home page
+        run: npx tsx __tests__/home.test.tsx
