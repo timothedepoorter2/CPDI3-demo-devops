@@ -25,4 +25,4 @@ jobs:
         run: docker build -t node-app .
 
       - name: run container
-        run: docker run -p 3000:3000 node-app
+        run: docker run --rm -p 3000:3000 node-app npx tsx __tests__/home.test.tsx
