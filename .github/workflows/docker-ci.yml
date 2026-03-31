@@ -21,11 +21,18 @@ jobs:
         with:
           node-version: 24
 
-      - name: build image
-        run: docker build -t node-app .
+      - name: docker compose
+        run: docker compose up -d
 
-      - name: run container
-        run: docker run -d -p 3000:3000 node-app
+      - name: install dependencies
+        run: docker compose run --rm app npm install
 
-      - name: stop container
-        run: docker compose down
+      - name: build app
+        run: docker compose run --rm app npm run build
+
+      - name: run app
+        run: docker compose run --rm app npm start &
+
+      - name: run test
+        run: docker compose run --rm npx app/tsx __tests__/home.test.tsx
+
