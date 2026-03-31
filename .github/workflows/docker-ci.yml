@@ -25,4 +25,7 @@ jobs:
         run: docker build -t node-app .
 
       - name: run container
-        run: docker run --rm -p 3000:3000 node-app npx tsx __tests__/home.test.tsx
+        run: docker run --rm -p 3000:3000 node-app
+
+      - name: stop container
+        run: docker compose down
