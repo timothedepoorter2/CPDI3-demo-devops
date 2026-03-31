@@ -34,4 +34,4 @@ jobs:
         run: npx wait-on http://localhost:3000
 
       - name: run test home page
-        run: npx tsx app/__tests__/home.test.tsx
+        run: npx jest home.test.tsx
