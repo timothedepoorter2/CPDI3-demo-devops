@@ -22,19 +22,19 @@ jobs:
           node-version: 24
 
       - name: docker compose
-        run: docker compose up -d
+        run: docker compose up -d --build
 
       - name: install dependencies
-        run: docker compose run --rm app npm install
+        run: docker compose exec -T app npm install
 
       - name: build app
-        run: docker compose run --rm app npm run build
+        run: docker compose exec -T app npm run build
 
       - name: run app
-        run: docker compose run --rm app npm start &
+        run: docker compose exec -T app npm start &
 
       - name: run test
-        run: docker compose run --rm app npx tsx app/__tests__/home.test.tsx
+        run: docker compose exec -T app npx tsx app/__tests__/home.test.tsx
 
       - name: stop container
         run: docker compose down
