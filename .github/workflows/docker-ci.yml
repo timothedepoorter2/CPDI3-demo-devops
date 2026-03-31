@@ -34,7 +34,7 @@ jobs:
         run: docker compose exec -T app npm start &
 
       - name: run test
-        run: docker compose exec -T app npx tsx app/__tests__/home.test.tsx
+        run: docker compose exec -T app npx jest home.test.tsx
 
       - name: stop container
         run: docker compose down
