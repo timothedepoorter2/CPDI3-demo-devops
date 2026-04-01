@@ -1,0 +1,40 @@
+name: Docker CI pipeline
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 24
+
+      - name: docker compose
+        run: docker compose up -d --build
+
+      - name: install dependencies
+        run: docker compose exec -T app npm install
+
+      - name: build app
+        run: docker compose exec -T app npm run build
+
+      - name: run app
+        run: docker compose exec -T app npm start &
+
+      - name: run test
+        run: docker compose exec -T app npx jest home.test.tsx
+
+      - name: stop container
+        run: docker compose down
